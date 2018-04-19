@@ -1,10 +1,11 @@
 
-# react-native-react-native-date-ranges
+# react-native-date-ranges
 
 ## Getting started
 
 `$ npm install react-native-date-ranges --save`
 
+![alt text](https://github.com/pohsiu/react-native-date-ranges/edit/master/ezgif.com-videro-to-gif.gif)
 
 ## Usage
 ```javascript
