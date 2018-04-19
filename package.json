@@ -1,0 +1,31 @@
+
+{
+  "name": "react-native-date-ranges",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "dates",
+    "date ranges",
+    "react-native-dates"
+  ],
+  "author": "louis",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "react": ">=16.0.0-alpha.12",
+    "moment": "^2.22.1",
+    "moment-range": "2.2.0",
+    "prop-types": "^15.6.1"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.41.2"
+  }
+}
