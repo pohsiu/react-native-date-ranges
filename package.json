@@ -12,7 +12,8 @@
     "dates",
     "date ranges",
     "react-native-dates",
-    "calendar"
+    "calendar",
+    "datepickers"
   ],
   "author": "louis",
   "license": "MIT",
