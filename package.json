@@ -1,7 +1,7 @@
 
 {
   "name": "react-native-date-ranges",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/pohsiu/react-native-date-ranges"
   },
   "dependencies": {
     "react": ">=16.0.0-alpha.12",

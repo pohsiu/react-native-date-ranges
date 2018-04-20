@@ -141,7 +141,7 @@ export default class DateRangePickerView extends Component {
           <View stlye={{flex:1, flexDirection:'column'}}>
             <View style={{height:'20%', maxHeight:'20%'}}>
               <View style={headerContainer}>
-                <Text style={markTitle}>選擇日期</Text>
+                <Text style={markTitle}>{this.props.markText? this.props.markText : '選擇日期' }</Text>
               <View style={styles.dateContainer}>
                 <Text style={headerDate}>{this.state.clearStart ? this.state.clearStart : 'startDate'}</Text>
                 <Text style={styles.headTitleText}>→</Text>
@@ -156,18 +156,23 @@ export default class DateRangePickerView extends Component {
               startDate={this.state.startDate}
               endDate={this.state.endDate}
               focusedInput={this.state.focus}
+              selectedColor={this.props.selectedColor || undefined}
               range
             />
             </View>
             <View style={{ paddingBottom: '5%',
               width:'100%', height: '10%',flexDirection:'row',justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableHighlight
-                underlayColor={'transparent'}
-                onPress={this.onConfrim}
-                style={{ width: '80%', marginHorizontal: '3%' }}
-                >
-                <Text style={{ fontSize:20 }}>送出</Text>
-              </TouchableHighlight>
+              {this.props.customButton 
+                ?customButton
+                :
+                <TouchableHighlight
+                  underlayColor={'transparent'}
+                  onPress={this.onConfrim}
+                  style={{ width: '80%', marginHorizontal: '3%' }}
+                  >
+                  <Text style={{ fontSize:20 }}>送出</Text>
+                </TouchableHighlight>
+              }
             </View>
           </View>
         </Modal>
