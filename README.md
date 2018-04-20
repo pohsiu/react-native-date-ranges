@@ -1,10 +1,11 @@
 
-# react-native-react-native-date-ranges
+# react-native-date-ranges
 
 ## Getting started
 
 `$ npm install react-native-date-ranges --save`
 
+![alt text](https://github.com/pohsiu/react-native-date-ranges/blob/master/ezgif.com-video-to-gif.gif)
 
 ## Usage
 ```javascript
@@ -26,3 +27,10 @@ import DatePicker from 'react-native-date-ranges';
 />
 ```
   
+## Props
+| Prop | Type | Description |
+:------------ |:---------------| :-----|
+| **`placehoold`** | `string` | optional. |
+| **`customStyles`** | `Object` | optional. customize style e.g.({ placeholderText:{}, headerStyle:{} ... }) |
+| **`style`** | `object` | Optional. date picker's style |
+....

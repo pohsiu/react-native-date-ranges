@@ -11,7 +11,8 @@
     "react-native",
     "dates",
     "date ranges",
-    "react-native-dates"
+    "react-native-dates",
+    "calendar"
   ],
   "author": "louis",
   "license": "MIT",
