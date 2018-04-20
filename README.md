@@ -30,7 +30,7 @@ import DatePicker from 'react-native-date-ranges';
 ## Props
 | Prop | Type | Description |
 :------------ |:---------------| :-----|
-| **`placehoold`** | `String` | optional. |
+| **`placeholder`** | `String` | optional. |
 | **`customStyles`** | `Object` | optional. customize style e.g.({ placeholderText:{}, headerStyle:{} ... }) |
 | **`style`** | `Object` | Optional. date picker's style |
 | **`onConfirm`** | `Function` | Optional. call function after click button |
