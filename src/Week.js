@@ -12,13 +12,11 @@ const styles = {
   week: {
     flexDirection: 'row',
     marginVertical: 5,
-    // justifyContent: 'space-between',
   },
   day: {
     flexGrow: 1,
     flexBasis: 1,
     alignItems: 'center',
-    // backgroundColor: 'rgb(245, 245, 245)',
     padding: 10,
   },
   dayText: {
@@ -30,7 +28,6 @@ const styles = {
     backgroundColor: 'rgb(255, 255, 255)'
   },
   daySelected: {
-    // backgroundColor: 'rgb(52,120,246)',
     backgroundColor: "#4597A8"
   },
   
@@ -117,11 +114,12 @@ export default class Week extends Component{
       const isSelected = isDateSelected();
       const isStart = isDateStart();
       const isEnd = isDateEnd();
-
+      const daySelectedStyle = selectedBgColor ? [styles.daySelected,{backgroundColor: selectedBgColor}] : styles.daySelected;
+      const daySelectedText = selectedTextColor ? [styles.daySelectedText,{color: selectedTextColor}] : styles.daySelectedText;
       const style = [
         styles.day,
         isBlocked && styles.dayBlocked,
-        isSelected && [styles.daySelected,{backgroundColor:selectedBgColor}],
+        isSelected && daySelectedStyle,
         isStart && styles.dayStarted,
         isEnd && styles.dayEnded,
       ];
@@ -129,7 +127,7 @@ export default class Week extends Component{
       const styleText = [
         styles.dayText,
         isBlocked && styles.dayDisabledText,
-        isSelected && [styles.daySelected,{color:selectedTextColor}],
+        isSelected && daySelectedText,
       ];
 
       days.push(
@@ -138,7 +136,6 @@ export default class Week extends Component{
           style={style}
           onPress={onPress}
           disabled={isBlocked && !onDisableClicked}
-          // onLayout={(event)=>console.log(event.nativeEvent.layout)}
         >
           <Text style={styleText}>{day.date()}</Text>
         </TouchableOpacity>
