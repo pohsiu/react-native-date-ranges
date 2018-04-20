@@ -71,9 +71,9 @@ export default class DateRangePickerView extends Component {
   setModalVisible = (visible) => {
     this.setState({ modalVisible: visible });
   }
-  onConfrim = () => {
-    if(this.props.onConfrim === 'function'){
-      this.props.onConfrim();
+  onConfirm = () => {
+    if(typeof this.props.onConfirm === 'function'){
+      this.props.onConfirm();
     }
     if(this.state.startDate && this.state.endDate){
       const start = this.state.startDate.format('LL');
@@ -162,17 +162,13 @@ export default class DateRangePickerView extends Component {
             </View>
             <View style={{ paddingBottom: '5%',
               width:'100%', height: '10%',flexDirection:'row',justifyContent: 'center', alignItems: 'center'}}>
-              {this.props.customButton 
-                ?customButton
-                :
                 <TouchableHighlight
                   underlayColor={'transparent'}
-                  onPress={this.onConfrim}
-                  style={{ width: '80%', marginHorizontal: '3%' }}
+                  onPress={this.onConfirm}
+                  style={[{ width: '80%', marginHorizontal: '3%' }, this.props.ButtonStyle]}
                   >
-                  <Text style={{ fontSize:20 }}>送出</Text>
+                  <Text style={[{ fontSize:20 }, this.props.ButtonTextStyle]}>{this.props.ButtonText? this.props.ButtonText: "送出"}</Text>
                 </TouchableHighlight>
-              }
             </View>
           </View>
         </Modal>
