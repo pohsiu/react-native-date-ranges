@@ -156,7 +156,8 @@ export default class DateRangePickerView extends Component {
               startDate={this.state.startDate}
               endDate={this.state.endDate}
               focusedInput={this.state.focus}
-              selectedColor={this.props.selectedColor || undefined}
+              selectedBgColor={this.props.selectedBgColor || undefined}
+              selectedTextColor={this.props.selectedTextColor || undefined}
               range
             />
             </View>

@@ -33,7 +33,8 @@ export default class Month extends Component{
       onDatesChange,
       isDateBlocked,
       onDisableClicked,
-      selectedColor,
+      selectedBgColor,
+      selectedTextColor,
     } = this.props;
     const dayNames = []; // store week's each day title 
     const weeks = [];
@@ -64,7 +65,8 @@ export default class Month extends Component{
           onDatesChange={onDatesChange}
           isDateBlocked={isDateBlocked}
           onDisableClicked={onDisableClicked}
-          selectedColor={selectedColor}
+          selectedBgColor={selectedBgColor}
+          selectedTextColor={selectedTextColor}
         />
       );
     });

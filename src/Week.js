@@ -65,7 +65,8 @@ export default class Week extends Component{
       onDatesChange,
       isDateBlocked,
       onDisableClicked,
-      selectedColor,
+      selectedBgColor,
+      selectedTextColor,
     } = this.props;
     const days = [];
     const endOfWeek = startOfWeek.clone().endOf('isoweek');
@@ -120,7 +121,7 @@ export default class Week extends Component{
       const style = [
         styles.day,
         isBlocked && styles.dayBlocked,
-        isSelected && [styles.daySelected,{color:selectedColor}],
+        isSelected && [styles.daySelected,{backgroundColor:selectedBgColor}],
         isStart && styles.dayStarted,
         isEnd && styles.dayEnded,
       ];
@@ -128,7 +129,7 @@ export default class Week extends Component{
       const styleText = [
         styles.dayText,
         isBlocked && styles.dayDisabledText,
-        isSelected && styles.daySelectedText
+        isSelected && [styles.daySelected,{color:selectedTextColor}],
       ];
 
       days.push(

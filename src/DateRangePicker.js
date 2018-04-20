@@ -65,7 +65,8 @@ export default class DateRangePicker extends Component {
           onDatesChange={this.props.onDatesChange}
           isDateBlocked={this.props.isDateBlocked}
           onDisableClicked={this.props.onDisableClicked}
-          selectedColor={this.props.selectedColor}
+          selectedBgColor={this.props.selectedBgColor}
+          selectedTextColor={this.props.selectedTextColor}
         />
       </View>
     );

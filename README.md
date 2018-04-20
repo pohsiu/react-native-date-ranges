@@ -34,7 +34,8 @@ import DatePicker from 'react-native-date-ranges';
 | **`customStyles`** | `Object` | optional. customize style e.g.({ placeholderText:{}, headerStyle:{} ... }) |
 | **`style`** | `Object` | Optional. date picker's style |
 | **`onConfirm`** | `Function` | Optional. call function after click button |
-| **`selectedColor`** | `String` | Optional. custom your selected date background color e.g {"black"} |
+| **`selectedBgColor`** | `String` | Optional. custom your selected date background color e.g {"black"} |
+| **`selectedTextColor`** | `String` | Optional. custom your selected date text color e.g {"black"} |
 | **`ButtonStyle`** | `Object` | Optional. custom your save button container style |
 | **`ButtonTextStyle`** | `Object` | Optional. custom your save button Text style  |
 | **`ButtonText`** | `String` | Optional. custom your save button Title e.g {"Save"} |
