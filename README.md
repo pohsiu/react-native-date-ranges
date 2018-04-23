@@ -5,7 +5,7 @@
 
 `$ npm install react-native-date-ranges --save`
 
-![alt text](https://github.com/pohsiu/react-native-date-ranges/blob/master/ezgif.com-video-to-gif.gif)
+![alt text](https://raw.githubusercontent.com/pohsiu/react-native-date-ranges/master/ezgif.com-video-to-gif.gif)
 
 ## Usage
 ```javascript
