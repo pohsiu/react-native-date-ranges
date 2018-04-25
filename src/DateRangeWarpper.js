@@ -72,14 +72,16 @@ export default class DateRangePickerView extends Component {
     this.setState({ modalVisible: visible });
   }
   onConfirm = () => {
-    if(typeof this.props.onConfirm === 'function'){
-      this.props.onConfirm();
-    }
+    
     if(this.state.startDate && this.state.endDate){
       const start = this.state.startDate.format('LL');
       const end = this.state.endDate.format('LL');
       this.setState({showContent:true, selected:`${start} → ${end}`});
       this.setModalVisible(false);
+
+      if(typeof this.props.onConfirm === 'function'){
+        this.props.onConfirm({startDate:start, endDate:end});
+      }
     }
     else{
       alert('please select correct date');
