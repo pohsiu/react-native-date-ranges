@@ -33,11 +33,13 @@ import DatePicker from 'react-native-date-ranges';
 | **`placeholder`** | `String` | optional. |
 | **`customStyles`** | `Object` | optional. customize style e.g.({ placeholderText:{}, headerStyle:{} ... }) |
 | **`style`** | `Object` | Optional. date picker's style |
-| **`onConfirm`** | `Function` | Optional. call function after click button |
+| **`onConfirm`** | `Function` | Optional. call function after click button, that would return a date object {startDate:'', endDate:''} e.g( value=>console.log(value))|
 | **`selectedBgColor`** | `String` | Optional. custom your selected date background color e.g {"black"} |
 | **`selectedTextColor`** | `String` | Optional. custom your selected date text color e.g {"black"} |
 | **`ButtonStyle`** | `Object` | Optional. custom your save button container style |
 | **`ButtonTextStyle`** | `Object` | Optional. custom your save button Text style  |
-| **`ButtonText`** | `String` | Optional. custom your save button Title e.g {"Save"} |
+| **`returnFormat`** | `String` | Optional. custom your datetime format e.g.('YYYY/MM/DD') at onConfirm |
+| **`headFormat`** | `String` | Optional. custom your datetime format showing at headBlock e.g.('YYYY/MM/DD')|
+| **`outFormat`** | `String` | Optional. custom your datetime format showing at outline touchable filed e.g.('YYYY/MM/DD')|
 
 ....

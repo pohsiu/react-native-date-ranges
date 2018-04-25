@@ -57,13 +57,14 @@ export default class DateRangePickerView extends Component {
     return date.isBefore(moment(), 'day');
   }
   onDatesChange = ({ startDate, endDate ,focusedInput }) => {
+    const headFormat = this.props.headFormat || 'MMM DD,YYYY';
     this.setState({ ...this.state, focus: focusedInput }, () => {
       this.setState({ ...this.state, startDate, endDate })
         if(endDate){
-          this.setState({clearStart:startDate.format('MMM DD,YYYY'), clearEnd:endDate.format('MMM DD,YYYY')})
+          this.setState({clearStart:startDate.format(headFormat), clearEnd:endDate.format(headFormat)})
         }
         else{
-          this.setState({clearStart:startDate.format('MMM DD,YYYY' ), clearEnd:''});
+          this.setState({clearStart:startDate.format(headFormat), clearEnd:''});
         }
     }
     );
@@ -72,15 +73,16 @@ export default class DateRangePickerView extends Component {
     this.setState({ modalVisible: visible });
   }
   onConfirm = () => {
-    
+    const returnFormat = this.props.returnFormat || 'YYYY/MM/DD';
     if(this.state.startDate && this.state.endDate){
-      const start = this.state.startDate.format('LL');
-      const end = this.state.endDate.format('LL');
+      const outFormat = this.props.outFormat || 'LL';
+      const start = this.state.startDate.format(outFormat);
+      const end = this.state.endDate.format(outFormat);
       this.setState({showContent:true, selected:`${start} → ${end}`});
       this.setModalVisible(false);
 
       if(typeof this.props.onConfirm === 'function'){
-        this.props.onConfirm({startDate:start, endDate:end});
+        this.props.onConfirm({startDate:this.state.startDate.format(returnFormat), endDate:this.state.endDate.format(returnFormat)});
       }
     }
     else{
