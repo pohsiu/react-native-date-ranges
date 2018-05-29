@@ -11,7 +11,7 @@
 ```javascript
 import DatePicker from 'react-native-date-ranges';
 
-<DateRangePicker
+<DatePicker
 	style={ { width: 350, height: 45 } }
 	customStyles = { {
 		placeholderText:{ fontSize:20 } // placeHolder style
