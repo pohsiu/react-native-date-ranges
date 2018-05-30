@@ -59,8 +59,7 @@ export default class Week extends Component{
   
   render(){
     const {
-      range,
-      pick,
+      mode,
       date,
       startDate,
       endDate,
@@ -81,7 +80,7 @@ export default class Week extends Component{
       const onPress = () => {
         if (isDateBlocked(day)) {
           onDisableClicked(day);
-        } else if (range) {
+        } else if (mode === 'range') {
           let isPeriodBlocked = false;
           const start = focusedInput === 'startDate' ? day : startDate;
           
@@ -95,7 +94,7 @@ export default class Week extends Component{
           onDatesChange(isPeriodBlocked ?
             dates(end, null, 'startDate') :
             dates(start, end, focusedInput));
-        } else if (pick) {
+        } else if (mode === 'single') {
           const input = day;
           onDatesChange({ currentDate: input});
         } else {
@@ -104,7 +103,7 @@ export default class Week extends Component{
       };
 
       const isDateRangeSelected = () => {
-        if (range) {
+        if (mode === 'range') {
           if (startDate && endDate) {
             return day.isSameOrAfter(startDate, 'day') && day.isSameOrBefore(endDate, 'day');
           }
@@ -114,7 +113,7 @@ export default class Week extends Component{
       };
       
       const isDateSelected = () => {
-        if (pick) {
+        if (mode === 'single') {
           return currentDate && day.isSame(currentDate, 'day');
         }
         return date && day.isSame(date, 'day');
@@ -132,7 +131,7 @@ export default class Week extends Component{
       const isEnd = isDateEnd();
       const isSelected = isDateSelected();
 
-      const dayRangeSelectedStyle = selectedBgColor ? [styles.daySelected,{backgroundColor: selectedBgColor}, border] : styles.daySelected;
+      const dayRangeSelectedStyle = selectedBgColor ? [styles.daySelected,{backgroundColor: selectedBgColor}] : styles.daySelected;
       const daySelectedText = selectedTextColor ? [styles.daySelectedText,{color: selectedTextColor}] : styles.daySelectedText;
       const style = [
         styles.day,
@@ -148,7 +147,15 @@ export default class Week extends Component{
         isRangeSelected && daySelectedText,
         isSelected && daySelectedText,
       ];
-      const borderContainer = pick && isSelected ? [styles.borderContainer,{borderRadius:20, backgroundColor:styles.daySelected.backgroundColor}] : styles.borderContainer;
+      const borderContainer = (mode === 'single') && isSelected 
+        ? [styles.borderContainer,
+          { borderRadius:20, 
+            backgroundColor: 
+              selectedBgColor 
+              ? selectedBgColor 
+              : styles.daySelected.backgroundColor
+          }] 
+        : styles.borderContainer;
       days.push(
         <TouchableOpacity
           key={day.date()}
@@ -169,8 +176,7 @@ export default class Week extends Component{
 }
 
 Week.propTypes = {
-  range: PropTypes.bool,
-  pick: PropTypes.bool,
+  mode: PropTypes.oneOf(['range', 'single']),
   date: PropTypes.instanceOf(moment),
   startDate: PropTypes.instanceOf(moment),
   endDate: PropTypes.instanceOf(moment),

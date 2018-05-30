@@ -23,8 +23,7 @@ const styles = {
 export default class Month extends Component{
   render(){
     const {
-      range,
-      pick,
+      mode,
       date,
       startDate,
       endDate,
@@ -55,8 +54,7 @@ export default class Month extends Component{
       weeks.push(
         <Week
           key={week}
-          range={range}
-          pick={pick}
+          mode={mode}
           date={date}
           startDate={startDate}
           endDate={endDate}
@@ -84,8 +82,7 @@ export default class Month extends Component{
 }
 
 Month.propTypes = {
-  range: PropTypes.bool,
-  pick: PropTypes.bool,
+  mode: PropTypes.oneOf(['range', 'single']),
   date: PropTypes.instanceOf(moment),
   startDate: PropTypes.instanceOf(moment),
   endDate: PropTypes.instanceOf(moment),

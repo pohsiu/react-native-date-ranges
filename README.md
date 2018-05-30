@@ -11,6 +11,7 @@
 ```javascript
 import DatePicker from 'react-native-date-ranges';
 
+//range picker
 <DatePicker
 	style={ { width: 350, height: 45 } }
 	customStyles = { {
@@ -24,6 +25,25 @@ import DatePicker from 'react-native-date-ranges';
 	centerAlign // optional text will align center or not
 	allowFontScaling = {false} // optional
 	placeholder={'Apr 27, 2018 → Jul 10, 2018'}
+	mode={'range'}
+/>
+
+//single picker
+<DatePicker
+	style={ { width: 350, height: 45 } }
+	customStyles = { {
+		placeholderText:{ fontSize:20 }, // placeHolder style
+		headerStyle : {  },			// title container style
+		headerMarkTitle : { }, // title mark style 
+		headerDateTitle: { }, // title Date style
+		contentInput: {}, //content text container style
+		contentText: {}, //after selected text Style
+	} } // optional 
+	centerAlign // optional text will align center or not
+	allowFontScaling = {false} // optional
+	placeholder={'Apr 27, 2018'}
+	selectedBgColor="black"
+	selectedTextColor="blue"
 />
 ```
   
@@ -41,5 +61,5 @@ import DatePicker from 'react-native-date-ranges';
 | **`returnFormat`** | `String` | Optional. custom your datetime format e.g.('YYYY/MM/DD') at onConfirm |
 | **`headFormat`** | `String` | Optional. custom your datetime format showing at headBlock e.g.('YYYY/MM/DD')|
 | **`outFormat`** | `String` | Optional. custom your datetime format showing at outline touchable filed e.g.('YYYY/MM/DD')|
-
+| **`mode`** | `String` | one of ['range', 'single'] , default as single|
 ....

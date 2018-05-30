@@ -5,19 +5,6 @@ import moment from 'moment';
 import normalize from './normalizeText';
 
 const styles = {
-  headCoverContainer: {
-    paddingTop:10,
-    height: normalize(120),
-    width: '100%',
-    justifyContent: 'center',
-    backgroundColor : '#F5A623',
-    paddingHorizontal: 30,
-  },
-  dateContainer : {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  headTitleText : { fontSize: normalize(20), color: 'white', fontWeight: 'bold' },
   placeholderText: {
     color: '#c9c9c9',
     fontSize: normalize(18),
@@ -37,7 +24,7 @@ const styles = {
   }
 
 }
-export default class DatePickView extends Component {
+export default class ComposePicker extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -58,25 +45,49 @@ export default class DatePickView extends Component {
     return date.isBefore(moment(), 'day');
   }
   onDatesChange = (event) => {
-    const {currentDate} = event;
     const headFormat = this.props.headFormat || 'MMM DD,YYYY';
-    this.setState({ ...this.state, currentDate });
+    const { startDate, endDate ,focusedInput, currentDate } = event;
+    if (currentDate) {
+      this.setState({currentDate});
+      return;
+    }
+    this.setState({ ...this.state, focus: focusedInput }, () => {
+      this.setState({ ...this.state, startDate, endDate })
+        if(endDate){
+          this.setState({clearStart:startDate.format(headFormat), clearEnd:endDate.format(headFormat)})
+        }
+        else{
+          this.setState({clearStart:startDate.format(headFormat), clearEnd:''});
+        }
+    }
+    );
   }
   setModalVisible = (visible) => {
     this.setState({ modalVisible: visible });
   }
   onConfirm = () => {
     const returnFormat = this.props.returnFormat || 'YYYY/MM/DD';
-    if(this.state.currentDate){
-      const outFormat = this.props.outFormat || 'LL';
+    const outFormat = this.props.outFormat || 'LL';
+    if (!this.props.mode || this.props.mode === 'single') {
       this.setState({showContent:true, selected: this.state.currentDate.format(outFormat)});
       this.setModalVisible(false);
-
       if(typeof this.props.onConfirm === 'function'){
         this.props.onConfirm({currentDate:this.state.currentDate.format(returnFormat)});
       }
+      return;
+    } 
+    
+    if (this.state.startDate && this.state.endDate) {
+      const start = this.state.startDate.format(outFormat);
+      const end = this.state.endDate.format(outFormat);
+      this.setState({showContent:true, selected:`${start} → ${end}`});
+      this.setModalVisible(false);
+
+      if (typeof this.props.onConfirm === 'function') {
+        this.props.onConfirm({startDate:this.state.startDate.format(returnFormat), endDate:this.state.endDate.format(returnFormat)});
+      }
     }
-    else{
+    else {
       alert('please select correct date');
     }
     
@@ -105,22 +116,8 @@ export default class DatePickView extends Component {
     let style = styles.stylish;
     style = this.props.centerAlign ? { ...style } : style;
     style = { ...style, ...this.props.style };
-    const headerContainer = {
-      ...styles.headCoverContainer,
-      ...customStyles.headerStyle,
-    }
-    const markTitle = {
-      ...styles.headTitleText,
-      color:'black',
-      opacity: 0.8 ,
-      marginBottom: 5,
-      fontSize: normalize(18),
-      ...customStyles.headerMarkTitle,
-    };
-    const headerDate = {
-      ...styles.headTitleText,
-      ...customStyles.headerDateTitle,
-    }
+    
+    
     return(
       <TouchableHighlight 
         underlayColor={'transparent'}
@@ -133,23 +130,20 @@ export default class DatePickView extends Component {
           transparent={false}
           visible={this.state.modalVisible}>
           <View stlye={{flex:1, flexDirection:'column'}}>
-            <View style={{height:'22%', maxHeight:'22%'}}>
-              <View style={headerContainer}>
-                <Text style={markTitle}>{this.state.currentDate.format('YYYY')}</Text>
-                <Text style={{ fontSize: 40, color:'white', fontWeight:'bold' }} >{this.state.currentDate.format('ddd, MMM D')}</Text>
-              </View>
-            </View>
-            <View style={{height:'68%'}}>
+            <View style={{height:'90%'}}>
             <DateRange
+              headFormat={this.props.headFormat}
+              customStyles={customStyles}
+              markText={this.props.markText}
               onDatesChange={this.onDatesChange}
               isDateBlocked={this.isDateBlocked}
               startDate={this.state.startDate}
-              currentDate={this.state.currentDate}
               endDate={this.state.endDate}
               focusedInput={this.state.focus}
               selectedBgColor={this.props.selectedBgColor || undefined}
               selectedTextColor={this.props.selectedTextColor || undefined}
-              pick
+              mode={this.props.mode || 'single'}
+              currentDate = {this.state.currentDate}
             />
             </View>
             <View style={{ paddingBottom: '5%',

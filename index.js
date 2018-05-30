@@ -1,3 +1,2 @@
-
-export { default as DatePicker } from './src/DatePickWrapper';
-export { default as DateRangePicker } from './src/DateRangeWrapper';
+import DatePicker from './src/ComposePicker';
+export default DatePicker;

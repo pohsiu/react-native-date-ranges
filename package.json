@@ -1,7 +1,7 @@
 
 {
   "name": "react-native-date-ranges",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,8 @@
     "react-native",
     "dates",
     "date ranges",
+    "single datepicker",
+    "range datepicker",
     "react-native-dates",
     "calendar",
     "datepickers",
