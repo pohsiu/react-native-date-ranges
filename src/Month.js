@@ -24,6 +24,7 @@ export default class Month extends Component{
   render(){
     const {
       range,
+      pick,
       date,
       startDate,
       endDate,
@@ -55,6 +56,7 @@ export default class Month extends Component{
         <Week
           key={week}
           range={range}
+          pick={pick}
           date={date}
           startDate={startDate}
           endDate={endDate}
@@ -83,6 +85,7 @@ export default class Month extends Component{
 
 Month.propTypes = {
   range: PropTypes.bool,
+  pick: PropTypes.bool,
   date: PropTypes.instanceOf(moment),
   startDate: PropTypes.instanceOf(moment),
   endDate: PropTypes.instanceOf(moment),

@@ -17,7 +17,7 @@ const styles = {
     flexGrow: 1,
     flexBasis: 1,
     alignItems: 'center',
-    padding: 10,
+    // padding: 10,
   },
   dayText: {
     color: 'rgb(0, 0, 0)',
@@ -28,7 +28,7 @@ const styles = {
     backgroundColor: 'rgb(255, 255, 255)'
   },
   daySelected: {
-    backgroundColor: "#4597A8"
+    backgroundColor: "#4597A8",
   },
   
   dayDisabledText: {
@@ -46,6 +46,12 @@ const styles = {
   dayEnded : {
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
+  },
+  borderContainer : { 
+    width:40, 
+    height:40, 
+    alignItems:'center', 
+    justifyContent:'center', 
   }
 }
 
@@ -54,6 +60,7 @@ export default class Week extends Component{
   render(){
     const {
       range,
+      pick,
       date,
       startDate,
       endDate,
@@ -64,6 +71,7 @@ export default class Week extends Component{
       onDisableClicked,
       selectedBgColor,
       selectedTextColor,
+      currentDate,
     } = this.props;
     const days = [];
     const endOfWeek = startOfWeek.clone().endOf('isoweek');
@@ -87,22 +95,30 @@ export default class Week extends Component{
           onDatesChange(isPeriodBlocked ?
             dates(end, null, 'startDate') :
             dates(start, end, focusedInput));
+        } else if (pick) {
+          const input = day;
+          onDatesChange({ currentDate: input});
         } else {
           onDatesChange({ date: day });
         }
       };
 
-      const isDateSelected = () => {
+      const isDateRangeSelected = () => {
         if (range) {
           if (startDate && endDate) {
             return day.isSameOrAfter(startDate, 'day') && day.isSameOrBefore(endDate, 'day');
           }
           return (startDate && day.isSame(startDate, 'day')) || (endDate && day.isSame(endDate, 'day'));
-        }
+        } 
         return date && day.isSame(date, 'day');
       };
       
-      
+      const isDateSelected = () => {
+        if (pick) {
+          return currentDate && day.isSame(currentDate, 'day');
+        }
+        return date && day.isSame(date, 'day');
+      }
       const isDateStart = () => {
         return startDate && day.isSame(startDate, 'day');
       }
@@ -111,15 +127,17 @@ export default class Week extends Component{
       }
 
       const isBlocked = isDateBlocked(day);
-      const isSelected = isDateSelected();
+      const isRangeSelected = isDateRangeSelected();
       const isStart = isDateStart();
       const isEnd = isDateEnd();
-      const daySelectedStyle = selectedBgColor ? [styles.daySelected,{backgroundColor: selectedBgColor}] : styles.daySelected;
+      const isSelected = isDateSelected();
+
+      const dayRangeSelectedStyle = selectedBgColor ? [styles.daySelected,{backgroundColor: selectedBgColor}, border] : styles.daySelected;
       const daySelectedText = selectedTextColor ? [styles.daySelectedText,{color: selectedTextColor}] : styles.daySelectedText;
       const style = [
         styles.day,
         isBlocked && styles.dayBlocked,
-        isSelected && daySelectedStyle,
+        isRangeSelected && dayRangeSelectedStyle,
         isStart && styles.dayStarted,
         isEnd && styles.dayEnded,
       ];
@@ -127,9 +145,10 @@ export default class Week extends Component{
       const styleText = [
         styles.dayText,
         isBlocked && styles.dayDisabledText,
+        isRangeSelected && daySelectedText,
         isSelected && daySelectedText,
       ];
-
+      const borderContainer = pick && isSelected ? [styles.borderContainer,{borderRadius:20, backgroundColor:styles.daySelected.backgroundColor}] : styles.borderContainer;
       days.push(
         <TouchableOpacity
           key={day.date()}
@@ -137,7 +156,9 @@ export default class Week extends Component{
           onPress={onPress}
           disabled={isBlocked && !onDisableClicked}
         >
-          <Text style={styleText}>{day.date()}</Text>
+          <View style={borderContainer}> 
+            <Text style={styleText}>{day.date()}</Text>
+          </View>
         </TouchableOpacity>
       );
     });
@@ -149,6 +170,7 @@ export default class Week extends Component{
 
 Week.propTypes = {
   range: PropTypes.bool,
+  pick: PropTypes.bool,
   date: PropTypes.instanceOf(moment),
   startDate: PropTypes.instanceOf(moment),
   endDate: PropTypes.instanceOf(moment),

@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { View, TouchableHighlight, Modal, Text } from 'react-native';
-import DateRange from './DateRangePicker';
+import DateRange from './DateRange';
 import moment from 'moment'; 
 import normalize from './normalizeText';
 
 const styles = {
   headCoverContainer: {
-    paddingTop:20,
-    height: normalize(110),
+    paddingTop:10,
+    height: normalize(120),
     width: '100%',
     justifyContent: 'center',
     backgroundColor : '#F5A623',
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
   },
   dateContainer : {
     flexDirection: 'row',
@@ -37,7 +37,7 @@ const styles = {
   }
 
 }
-export default class DateRangePickerView extends Component {
+export default class DatePickView extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -51,38 +51,29 @@ export default class DateRangePickerView extends Component {
       focus:'startDate',
       clearStart:'',
       clearEnd:'',
+      currentDate: moment(),
     }
   }
   isDateBlocked = ( date ) => {
     return date.isBefore(moment(), 'day');
   }
-  onDatesChange = ({ startDate, endDate ,focusedInput }) => {
+  onDatesChange = (event) => {
+    const {currentDate} = event;
     const headFormat = this.props.headFormat || 'MMM DD,YYYY';
-    this.setState({ ...this.state, focus: focusedInput }, () => {
-      this.setState({ ...this.state, startDate, endDate })
-        if(endDate){
-          this.setState({clearStart:startDate.format(headFormat), clearEnd:endDate.format(headFormat)})
-        }
-        else{
-          this.setState({clearStart:startDate.format(headFormat), clearEnd:''});
-        }
-    }
-    );
+    this.setState({ ...this.state, currentDate });
   }
   setModalVisible = (visible) => {
     this.setState({ modalVisible: visible });
   }
   onConfirm = () => {
     const returnFormat = this.props.returnFormat || 'YYYY/MM/DD';
-    if(this.state.startDate && this.state.endDate){
+    if(this.state.currentDate){
       const outFormat = this.props.outFormat || 'LL';
-      const start = this.state.startDate.format(outFormat);
-      const end = this.state.endDate.format(outFormat);
-      this.setState({showContent:true, selected:`${start} → ${end}`});
+      this.setState({showContent:true, selected: this.state.currentDate.format(outFormat)});
       this.setModalVisible(false);
 
       if(typeof this.props.onConfirm === 'function'){
-        this.props.onConfirm({startDate:this.state.startDate.format(returnFormat), endDate:this.state.endDate.format(returnFormat)});
+        this.props.onConfirm({currentDate:this.state.currentDate.format(returnFormat)});
       }
     }
     else{
@@ -112,7 +103,7 @@ export default class DateRangePickerView extends Component {
     } = this.props;
     
     let style = styles.stylish;
-    style = this.props.centerAlign ? { ...style, textAlign: 'center' } : style;
+    style = this.props.centerAlign ? { ...style } : style;
     style = { ...style, ...this.props.style };
     const headerContainer = {
       ...styles.headCoverContainer,
@@ -122,7 +113,7 @@ export default class DateRangePickerView extends Component {
       ...styles.headTitleText,
       color:'black',
       opacity: 0.8 ,
-      marginBottom: 15,
+      marginBottom: 5,
       fontSize: normalize(18),
       ...customStyles.headerMarkTitle,
     };
@@ -130,7 +121,6 @@ export default class DateRangePickerView extends Component {
       ...styles.headTitleText,
       ...customStyles.headerDateTitle,
     }
-    
     return(
       <TouchableHighlight 
         underlayColor={'transparent'}
@@ -143,26 +133,23 @@ export default class DateRangePickerView extends Component {
           transparent={false}
           visible={this.state.modalVisible}>
           <View stlye={{flex:1, flexDirection:'column'}}>
-            <View style={{height:'20%', maxHeight:'20%'}}>
+            <View style={{height:'22%', maxHeight:'22%'}}>
               <View style={headerContainer}>
-                <Text style={markTitle}>{this.props.markText? this.props.markText : '選擇日期' }</Text>
-              <View style={styles.dateContainer}>
-                <Text style={headerDate}>{this.state.clearStart ? this.state.clearStart : 'startDate'}</Text>
-                <Text style={styles.headTitleText}>→</Text>
-                <Text style={headerDate}>{this.state.clearEnd ? this.state.clearEnd : 'endDate'}</Text>
-              </View>
+                <Text style={markTitle}>{this.state.currentDate.format('YYYY')}</Text>
+                <Text style={{ fontSize: 40, color:'white', fontWeight:'bold' }} >{this.state.currentDate.format('ddd, MMM D')}</Text>
               </View>
             </View>
-            <View style={{height:'70%'}}>
+            <View style={{height:'68%'}}>
             <DateRange
               onDatesChange={this.onDatesChange}
               isDateBlocked={this.isDateBlocked}
               startDate={this.state.startDate}
+              currentDate={this.state.currentDate}
               endDate={this.state.endDate}
               focusedInput={this.state.focus}
               selectedBgColor={this.props.selectedBgColor || undefined}
               selectedTextColor={this.props.selectedTextColor || undefined}
-              range
+              pick
             />
             </View>
             <View style={{ paddingBottom: '5%',

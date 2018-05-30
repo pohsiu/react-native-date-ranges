@@ -26,11 +26,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class DateRangePicker extends Component {
+export default class DateRange extends Component {
   constructor(){
     super();
     this.state = {
-      currentDate: moment(),
       focusedMonth: moment().startOf('month'),
     }
   }
@@ -41,7 +40,7 @@ export default class DateRangePicker extends Component {
     this.setState({ focusedMonth: this.state.focusedMonth.add(1, 'M') });
   };
   render() {
-    
+    const currentDate = this.props.currentDate ||  moment();
     return (
       <View style={styles.calendar}>
         
@@ -56,11 +55,12 @@ export default class DateRangePicker extends Component {
         </View>
         <Month
           range={this.props.range}
+          pick={this.props.pick}
           date={this.props.date}
           startDate={this.props.startDate}
           endDate={this.props.endDate}
           focusedInput={this.props.focusedInput}
-          currentDate={this.state.currentDate}
+          currentDate={currentDate}
           focusedMonth={this.state.focusedMonth}
           onDatesChange={this.props.onDatesChange}
           isDateBlocked={this.props.isDateBlocked}
@@ -74,8 +74,9 @@ export default class DateRangePicker extends Component {
 }
 
 
-DateRangePicker.propTypes = {
+DateRange.propTypes = {
   range: PropTypes.bool,
+  pick: PropTypes.bool,
   date: PropTypes.instanceOf(moment),
   startDate: PropTypes.instanceOf(moment),
   endDate: PropTypes.instanceOf(moment),
