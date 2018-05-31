@@ -55,7 +55,6 @@ export default class NewPicker extends React.Component{
   } 
   render(){
     const {
-      customButton,
       ...rest
     } = this.props;
     const customButton = (<Button onPress={this.customButtonOnPress} style={{ container:{ width:'80%', marginHorizontal:'3%' }, text:{ fontSize: 20 } }} primary text={'送出'}/>);
