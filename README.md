@@ -55,39 +55,19 @@ export default class NewPicker extends React.Component{
   } 
   render(){
     const {
-      style,
-      placeholder,
-      outFormat,
-      returnFormat,
-      onConfirm,
-      mode,
-      customStyles,
-      selectedBgColor,
-      selectedTextColor,
-      ButtonStyle,
-      ButtonTextStyle
-      ...,
+      customButton,
+      ...rest
     } = this.props;
     const customButton = (<Button onPress={this.customButtonOnPress} style={{ container:{ width:'80%', marginHorizontal:'3%' }, text:{ fontSize: 20 } }} primary text={'送出'}/>);
     return(
       <DatePicker
         ref = {(ref)=> this.picker = ref}
-        style = {style}
-        customStyles = {customStyles}
-        selectedBgColor = {selectedBgColor}
-        ButtonStyle = {ButtonStyle}
-        ButtonTextStyle = {ButtonTextStyle}
-        placeholder = {placeholder}
-        outFormat = {outFormat}
-        returnFormat = {returnFormat}
-        mode = {mode}
-        onConfirm = {onConfirm}
+        {...rest}
         customButton = {customButton}
-        ...
       />
     )
   }
-}
+} 
 
 ```
   
