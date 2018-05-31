@@ -46,12 +46,16 @@ const styles = {
 export default class DateRange extends Component {
   constructor(props){
     super(props);
+    const defalutFormat = (!props.mode || props.mode === 'single') ? 'ddd, MMM D' : 'MMM DD,YYYY';
     this.state = {
       focusedMonth: moment().startOf('month'),
       currentDate: props.currentDate || '',
       startDate: props.startDate || '',
       endDate: props.endDate || '',
       focus: props.focusedInput || 'startDate',
+      clearStart: '',
+      clearEnd:'',
+      clearSingle: props.currentDate.format(defalutFormat) || '',
     }
   }
   previousMonth = () => {
@@ -66,10 +70,12 @@ export default class DateRange extends Component {
   };
   onDatesChange = (event) => {
     this.props.onDatesChange(event);
-    const headFormat = this.props.headFormat || 'MMM DD,YYYY';
+    const defalutFormat = (!this.props.mode || this.props.mode === 'single') ? 'ddd, MMM D' : 'MMM DD,YYYY';
+    const headFormat = this.props.headFormat || defalutFormat;
     const { startDate, endDate ,focusedInput, currentDate } = event;
     if (currentDate) {
       this.setState({currentDate});
+      this.setState({clearSingle:currentDate.format(headFormat)});
       return;
     }
     this.setState({ ...this.state, focus: focusedInput }, () => {
@@ -112,7 +118,7 @@ export default class DateRange extends Component {
           {this.props.mode === 'single' && 
             <View>
               <Text style={markTitle}>{this.state.focusedMonth.format('YYYY')}</Text>
-              <Text style={{ fontSize: 40, color:'white', fontWeight:'bold' }}>{this.state.currentDate.format('ddd, MMM D')}</Text>
+              <Text style={{ fontSize: 40, color:'white', fontWeight:'bold' }}>{this.state.clearSingle}</Text>
             </View>
           }
           {this.props.mode === 'range' && 

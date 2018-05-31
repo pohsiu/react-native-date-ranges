@@ -36,8 +36,6 @@ export default class ComposePicker extends Component {
       endDate: null,
       date: new Date(),
       focus:'startDate',
-      clearStart:'',
-      clearEnd:'',
       currentDate: moment(),
     }
   }
@@ -53,12 +51,6 @@ export default class ComposePicker extends Component {
     }
     this.setState({ ...this.state, focus: focusedInput }, () => {
       this.setState({ ...this.state, startDate, endDate })
-        if(endDate){
-          this.setState({clearStart:startDate.format(headFormat), clearEnd:endDate.format(headFormat)})
-        }
-        else{
-          this.setState({clearStart:startDate.format(headFormat), clearEnd:''});
-        }
     }
     );
   }
