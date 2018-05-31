@@ -45,6 +45,48 @@ import DatePicker from 'react-native-date-ranges';
 	selectedBgColor="black"
 	selectedTextColor="blue"
 />
+
+
+//customButton usage...
+export default class NewPicker extends React.Component{
+  customButtonOnPress = () => {
+    console.log('customButton');
+    this.picker.onConfirm();
+  } 
+  render(){
+    const {
+      style,
+      placeholder,
+      outFormat,
+      returnFormat,
+      onConfirm,
+      mode,
+      customStyles,
+      selectedBgColor,
+      selectedTextColor,
+      ButtonStyle,
+      ButtonTextStyle
+    } = this.props;
+    const customButton = (<Button onPress={this.customButtonOnPress} style={{ container:{ width:'80%', marginHorizontal:'3%' }, text:{ fontSize: 20 } }} primary text={'送出'}/>);
+    return(
+      <DatePicker
+        ref = {(ref)=> this.picker = ref}
+        style = {style}
+        customStyles = {customStyles}
+        selectedBgColor = {selectedBgColor}
+        ButtonStyle = {ButtonStyle}
+        ButtonTextStyle = {ButtonTextStyle}
+        placeholder = {placeholder}
+        outFormat = {outFormat}
+        returnFormat = {returnFormat}
+        mode = {mode}
+        onConfirm = {onConfirm}
+        customButton = {customButton}
+      />
+    )
+  }
+}
+
 ```
   
 ## Props
@@ -62,4 +104,5 @@ import DatePicker from 'react-native-date-ranges';
 | **`headFormat`** | `String` | Optional. custom your datetime format showing at headBlock e.g.('YYYY/MM/DD')|
 | **`outFormat`** | `String` | Optional. custom your datetime format showing at outline touchable filed e.g.('YYYY/MM/DD')|
 | **`mode`** | `String` | one of ['range', 'single'] , default as single|
+| **`customButton`** | `component` | Optional (total custom your button component)e.g.(<Button></Button>) | 
 ....

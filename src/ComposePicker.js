@@ -148,13 +148,18 @@ export default class ComposePicker extends Component {
             </View>
             <View style={{ paddingBottom: '5%',
               width:'100%', height: '10%',flexDirection:'row',justifyContent: 'center', alignItems: 'center'}}>
-                <TouchableHighlight
+                {this.props.customButton
+                  ?
+                  this.props.customButton
+                  :          
+                  <TouchableHighlight
                   underlayColor={'transparent'}
                   onPress={this.onConfirm}
                   style={[{ width: '80%', marginHorizontal: '3%' }, this.props.ButtonStyle]}
                   >
                   <Text style={[{ fontSize:20 }, this.props.ButtonTextStyle]}>{this.props.ButtonText? this.props.ButtonText: "送出"}</Text>
-                </TouchableHighlight>
+                  </TouchableHighlight>
+                }
             </View>
           </View>
         </Modal>
