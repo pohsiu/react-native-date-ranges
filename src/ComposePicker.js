@@ -40,10 +40,12 @@ export default class ComposePicker extends Component {
     }
   }
   isDateBlocked = ( date ) => {
-    return date.isBefore(moment(), 'day');
+    if ( this.props.blockBefore ){
+      return date.isBefore(moment(), 'day');
+    }
+    return false;
   }
   onDatesChange = (event) => {
-    const headFormat = this.props.headFormat || 'MMM DD,YYYY';
     const { startDate, endDate ,focusedInput, currentDate } = event;
     if (currentDate) {
       this.setState({currentDate});

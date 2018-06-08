@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Picker,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -43,19 +44,26 @@ const styles = {
   },
 };
 
+const min = 1900;
+const max = 2100;
+const interval = (max - min) + 1;
+const rangeArray = Array.from(new Array(interval),(val,index)=>index+min);
+
 export default class DateRange extends Component {
   constructor(props){
     super(props);
     const defalutFormat = (!props.mode || props.mode === 'single') ? 'ddd, MMM D' : 'MMM DD,YYYY';
     this.state = {
       focusedMonth: moment().startOf('month'),
-      currentDate: props.currentDate || '',
+      currentDate: props.currentDate || moment(),
       startDate: props.startDate || '',
       endDate: props.endDate || '',
       focus: props.focusedInput || 'startDate',
       clearStart: '',
       clearEnd:'',
       clearSingle: props.currentDate.format(defalutFormat) || '',
+      selectState: 'monthAndDate', // or year
+      selectedYear: null,
     }
   }
   previousMonth = () => {
@@ -89,8 +97,30 @@ export default class DateRange extends Component {
     }
     );
   }
+  selectYear = () => {
+    this.setState({
+      selectState : 'year',
+      selectedYear : parseInt(this.state.focusedMonth.format('YYYY')),
+    })
+  }
+  selectMonthAndDate = () => {
+    this.setState({
+      selectState : 'monthAndDate',
+    })
+  }
+  changeYear = (itemValue) => {
+    this.setState({selectedYear: itemValue});
+    this.setState({ 
+      focusedMonth: this.state.focusedMonth.year(itemValue),
+      currentDate: this.state.currentDate.year(itemValue),
+    });
+    const defalutFormat = (!this.props.mode || this.props.mode === 'single') ? 'ddd, MMM D' : 'MMM DD,YYYY';
+    const headFormat = this.props.headFormat || defalutFormat;
+    this.setState({clearSingle:this.state.currentDate.format(headFormat)});
+      
+  }
   render() {
-    const currentDate = this.props.currentDate ||  moment();
+    
     const markText = this.props.markText || "選擇日期";
     const {
       customStyles = {},
@@ -114,11 +144,15 @@ export default class DateRange extends Component {
     }
     return (
       <View>
-        <View style={styles.headCoverContainer}>
+        <View style={headerContainer}>
           {this.props.mode === 'single' && 
             <View>
-              <Text style={markTitle}>{this.state.focusedMonth.format('YYYY')}</Text>
-              <Text style={{ fontSize: 40, color:'white', fontWeight:'bold' }}>{this.state.clearSingle}</Text>
+              <TouchableOpacity onPress={this.selectYear}>
+                <Text style={markTitle}>{this.state.focusedMonth.format('YYYY')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this.selectMonthAndDate}>
+                <Text style={{ fontSize: 40, color:'white', fontWeight:'bold' }}>{this.state.clearSingle}</Text>
+              </TouchableOpacity>
             </View>
           }
           {this.props.mode === 'range' && 
@@ -132,33 +166,46 @@ export default class DateRange extends Component {
             </View>
           }
         </View>
-        <View style={styles.calendar}>
-          
-          <View style={styles.headActionContainer}>
-            <TouchableOpacity onPress={this.previousMonth}>
-              <Text style={{paddingHorizontal:15, fontSize:18, fontWeight:'bold'}}>{'<'}</Text>
-            </TouchableOpacity>
-            <Text style={{fontSize:20, color:'black', fontWeight:'bold' }}>{this.state.focusedMonth.format('MMMM YYYY')}</Text>
-            <TouchableOpacity onPress={this.nextMonth}>
-              <Text style={{paddingHorizontal:15, fontSize:18, fontWeight:'bold'}}>{'>'}</Text>
-            </TouchableOpacity>
+        {this.state.selectState === 'monthAndDate' &&
+          <View style={styles.calendar}>
+            <View style={styles.headActionContainer}>
+              <TouchableOpacity onPress={this.previousMonth}>
+                <Text style={{paddingHorizontal:15, fontSize:18, fontWeight:'bold'}}>{'<'}</Text>
+              </TouchableOpacity>
+              <Text style={{fontSize:20, color:'black', fontWeight:'bold' }}>{this.state.focusedMonth.format('MMMM YYYY')}</Text>
+              <TouchableOpacity onPress={this.nextMonth}>
+                <Text style={{paddingHorizontal:15, fontSize:18, fontWeight:'bold'}}>{'>'}</Text>
+              </TouchableOpacity>
+            </View>
+            <Month
+              mode={this.props.mode}
+              date={this.props.date}
+              startDate={this.props.startDate}
+              endDate={this.props.endDate}
+              focusedInput={this.props.focusedInput}
+              currentDate={this.state.currentDate}
+              focusedMonth={this.state.focusedMonth}
+              onDatesChange={this.onDatesChange}
+              isDateBlocked={this.props.isDateBlocked}
+              onDisableClicked={this.props.onDisableClicked}
+              selectedBgColor={this.props.selectedBgColor}
+              selectedTextColor={this.props.selectedTextColor}
+            />
           </View>
-          <Month
-            mode={this.props.mode}
-            date={this.props.date}
-            startDate={this.props.startDate}
-            endDate={this.props.endDate}
-            focusedInput={this.props.focusedInput}
-            currentDate={currentDate}
-            focusedMonth={this.state.focusedMonth}
-            onDatesChange={this.onDatesChange}
-            isDateBlocked={this.props.isDateBlocked}
-            onDisableClicked={this.props.onDisableClicked}
-            selectedBgColor={this.props.selectedBgColor}
-            selectedTextColor={this.props.selectedTextColor}
-          />
+        }
+        {this.state.selectState === 'year' && 
+          <View style={[styles.calendar, { height:'75%', justifyContent:'center', }]}>
+            <Picker
+              selectedValue = { this.state.selectedYear }
+              onValueChange = { this.changeYear }
+              >
+              {rangeArray.map((value,index)=>{
+                return(<Picker.Item key={index} label={String(value)} value={value}/>)})}
+            </Picker>
+          </View>
+        }
         </View>
-      </View>
+        
     );
   }
 }

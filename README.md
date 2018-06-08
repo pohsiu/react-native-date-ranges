@@ -85,5 +85,7 @@ export default class NewPicker extends React.Component{
 | **`headFormat`** | `String` | Optional. custom your datetime format showing at headBlock e.g.('YYYY/MM/DD')|
 | **`outFormat`** | `String` | Optional. custom your datetime format showing at outline touchable filed e.g.('YYYY/MM/DD')|
 | **`mode`** | `String` | one of ['range', 'single'] , default as single|
-| **`customButton`** | `component` | Optional (total custom your button component)e.g.(<Button></Button>) | 
+| **`customButton`** | `component` | Optional (total custom your button component)e.g.(`<Button></Button>`) | 
+| **`blockBefore`** | `Bool` | optional. default is false, decide blocke date before today or not | 
+
 ....
