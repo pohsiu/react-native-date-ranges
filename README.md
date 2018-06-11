@@ -1,6 +1,7 @@
 
 # react-native-date-ranges
-
+[![npm version](https://img.shields.io/npm/v/redux.svg?style=flat-square)](https://www.npmjs.com/package/redux)
+[![npm downloads](https://img.shields.io/npm/dm/redux.svg?style=flat-square)](https://www.npmjs.com/package/redux)
 ## Getting started
 
 `$ npm install react-native-date-ranges --save`
