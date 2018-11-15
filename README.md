@@ -88,5 +88,6 @@ export default class NewPicker extends React.Component{
 | **`mode`** | `String` | one of ['range', 'single'] , default as single|
 | **`customButton`** | `component` | Optional (total custom your button component)e.g.(`<Button></Button>`) | 
 | **`blockBefore`** | `Bool` | optional. default is false, decide blocke date before today or not | 
+| **`blockAfter`** | `Bool` | optional. default is false, decide blocke date after today or not |
 
 ....
