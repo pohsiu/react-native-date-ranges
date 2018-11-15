@@ -42,6 +42,8 @@ export default class ComposePicker extends Component {
   isDateBlocked = ( date ) => {
     if ( this.props.blockBefore ){
       return date.isBefore(moment(), 'day');
+    }else if(this.props.blockAfter){
+      return date.isAfter(moment(), 'day');
     }
     return false;
   }
