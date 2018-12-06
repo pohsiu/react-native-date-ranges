@@ -87,5 +87,6 @@ export default class NewPicker extends React.Component{
 | **`mode`** | `String` | one of ['range', 'single'] , default as single|
 | **`customButton`** | `component` | Optional (total custom your button component)e.g.(`<Button></Button>`) | 
 | **`blockBefore`** | `Bool` | optional. default is false, decide blocke date before today or not | 
-
+| **`markText`** | `String` | optional. default is "選擇日期", you can custom this prop to label text with ur own |
+| **`buttonText`** | `String` | optional. you can modify default button't label with your own | 
 ....
