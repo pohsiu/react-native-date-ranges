@@ -1,6 +1,7 @@
 
 # react-native-date-ranges
-
+[![npm version](https://img.shields.io/npm/v/react-native-date-ranges.svg?style=flat-square)](https://www.npmjs.com/package/react-native-date-ranges)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-date-ranges.svg?style=flat-square)](https://www.npmjs.com/package/react-native-date-ranges)
 ## Getting started
 
 `$ npm install react-native-date-ranges --save`
@@ -87,6 +88,11 @@ export default class NewPicker extends React.Component{
 | **`mode`** | `String` | one of ['range', 'single'] , default as single|
 | **`customButton`** | `component` | Optional (total custom your button component)e.g.(`<Button></Button>`) | 
 | **`blockBefore`** | `Bool` | optional. default is false, decide blocke date before today or not | 
+<<<<<<< HEAD
 | **`markText`** | `String` | optional. default is "選擇日期", you can custom this prop to label text with ur own |
 | **`buttonText`** | `String` | optional. you can modify default button't label with your own | 
+=======
+| **`blockAfter`** | `Bool` | optional. default is false, decide blocke date after today or not |
+
+>>>>>>> 15273ac335c858c312ec75998f032088e994f925
 ....
