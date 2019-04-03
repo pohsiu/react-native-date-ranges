@@ -165,7 +165,7 @@ export default class ComposePicker extends Component {
             </View>
             <View style={{ paddingBottom: '5%',
               width:'100%', height: '10%',flexDirection:'row',justifyContent: 'center', alignItems: 'center'}}>
-                {this.renderCustomButton()}
+                {this.renderButton()}
             </View>
           </View>
         </Modal>
