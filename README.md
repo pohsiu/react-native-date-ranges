@@ -50,20 +50,25 @@ import DatePicker from 'react-native-date-ranges';
 
 //customButton usage...
 export default class NewPicker extends React.Component{
-  customButtonOnPress = () => {
-    console.log('customButton');
-    this.picker.onConfirm();
-  } 
+	
+	customButton = (onConfirm) => (
+		<Button
+			onPress={onConfirm}
+			style={{ container:{ width:'80%', marginHorizontal:'3%' }, text:{ fontSize: 20 } }}
+			primary
+			text={'送出'}
+		/>
+	)
+
   render(){
     const {
       ...rest
     } = this.props;
-    const customButton = (<Button onPress={this.customButtonOnPress} style={{ container:{ width:'80%', marginHorizontal:'3%' }, text:{ fontSize: 20 } }} primary text={'送出'}/>);
     return(
       <DatePicker
         ref = {(ref)=> this.picker = ref}
         {...rest}
-        customButton = {customButton}
+        customButton = {this.customButton}
       />
     )
   }
