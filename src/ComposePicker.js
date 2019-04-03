@@ -143,6 +143,7 @@ export default class ComposePicker extends Component {
         <View><View style={[customStyles.contentInput,styles.contentInput]}>{this.getTitleElement()}</View></View>
         <Modal 
           animationType="slide"
+          onRequestClose={() => this.setModalVisible(false)}
           transparent={false}
           visible={this.state.modalVisible}>
           <View stlye={{flex:1, flexDirection:'column'}}>
