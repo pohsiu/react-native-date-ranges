@@ -96,8 +96,8 @@ export default class NewPicker extends React.Component{
 | **`buttonText`** | `String` | optional. you can modify default button't label with your own | 
 | **`dateSplitter`** | `String` | optional. default is '->', decide custom dateSplitter with String  |
 
-Support one mode of them below only,
-## Props
+
+## Support one mode of them below only,
 | Prop | Type | Description |
 :------------ |:---------------| :-----|
 | **`specifyRanges`** | `Object` | optional. decide specifyRanges in object = { start: moment(), end: moment() }, that only you can select from  |
