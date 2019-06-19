@@ -61,35 +61,39 @@ export default class ComposePicker extends Component {
     this.setState({ modalVisible: visible });
   };
   onConfirm = () => {
-    const returnFormat = this.props.returnFormat || 'YYYY/MM/DD';
-    const outFormat = this.props.outFormat || 'LL';
-    if (!this.props.mode || this.props.mode === 'single') {
+    const { 
+      returnFormat = 'YYYY/MM/DD',
+      outFormat = 'LL',
+      mode,
+      onConfirm,
+    } = this.props;
+    if (!mode || mode === 'single') {
       this.setState({
         showContent: true,
         selected: this.state.currentDate.format(outFormat)
       });
       this.setModalVisible(false);
-      if (typeof this.props.onConfirm === 'function') {
-        this.props.onConfirm({
+      if (typeof onConfirm === 'function') {
+        onConfirm({
           currentDate: this.state.currentDate.format(returnFormat)
         });
       }
       return;
     }
-
-    if (this.state.startDate && this.state.endDate) {
-      const start = this.state.startDate.format(outFormat);
-      const end = this.state.endDate.format(outFormat);
+    const { startDate, endDate } = this.state;
+    if (startDate && endDate) {
+      const start = startDate.format(outFormat);
+      const end = endDate.format(outFormat);
       this.setState({
         showContent: true,
         selected: `${start} ${this.props.dateSplitter} ${end}`
       });
       this.setModalVisible(false);
 
-      if (typeof this.props.onConfirm === 'function') {
-        this.props.onConfirm({
-          startDate: this.state.startDate.format(returnFormat),
-          endDate: this.state.endDate.format(returnFormat)
+      if (typeof onConfirm === 'function') {
+        onConfirm({
+          startDate: startDate.format(returnFormat),
+          endDate: endDate.format(returnFormat)
         });
       }
     } else {
@@ -98,7 +102,7 @@ export default class ComposePicker extends Component {
   };
   getTitleElement() {
     const { placeholder, customStyles = {}, allowFontScaling } = this.props;
-    const showContent = this.state.showContent;
+    const { showContent } = this.state;
     if (!showContent && placeholder) {
       return (
         <Text
@@ -125,28 +129,44 @@ export default class ComposePicker extends Component {
     if (customButton) {
       return customButton(this.onConfirm);
     }
+    const { ButtonTextStyle, ButtonText, ButtonStyle } = this.props;
     return (
       <TouchableHighlight
         underlayColor={'transparent'}
         onPress={this.onConfirm}
         style={[
           { width: '80%', marginHorizontal: '3%' },
-          this.props.ButtonStyle
+          ButtonStyle
         ]}
       >
-        <Text style={[{ fontSize: 20 }, this.props.ButtonTextStyle]}>
-          {this.props.ButtonText ? this.props.ButtonText : '送出'}
+        <Text style={[{ fontSize: 20 }, ButtonTextStyle]}>
+          {ButtonText ? ButtonText : '送出'}
         </Text>
       </TouchableHighlight>
     );
   };
 
   render() {
-    const { customStyles = {} } = this.props;
-
+    const {
+      customStyles = {},
+      centerAlign,
+      style: newStyle,
+      headFormat,
+      markText,
+      selectedBgColor,
+      selectedTextColor,
+      mode,
+    } = this.props;
+    const {
+      modalVisible,
+      startDate,
+      endDate,
+      focus,
+      currentDate,
+    } = this.state;
     let style = styles.stylish;
-    style = this.props.centerAlign ? { ...style } : style;
-    style = { ...style, ...this.props.style };
+    style = centerAlign ? { ...style } : style;
+    style = { ...style, ...newStyle };
 
     return (
       <TouchableHighlight
@@ -169,23 +189,23 @@ export default class ComposePicker extends Component {
             animationType="slide"
             onRequestClose={() => this.setModalVisible(false)}
             transparent={false}
-            visible={this.state.modalVisible}
+            visible={modalVisible}
           >
             <View stlye={{ flex: 1, flexDirection: 'column' }}>
               <View style={{ height: '90%' }}>
                 <DateRange
-                  headFormat={this.props.headFormat}
+                  headFormat={headFormat}
                   customStyles={customStyles}
-                  markText={this.props.markText}
+                  markText={markText}
                   onDatesChange={this.onDatesChange}
                   isDateBlocked={this.isDateBlocked}
-                  startDate={this.state.startDate}
-                  endDate={this.state.endDate}
-                  focusedInput={this.state.focus}
-                  selectedBgColor={this.props.selectedBgColor || undefined}
-                  selectedTextColor={this.props.selectedTextColor || undefined}
-                  mode={this.props.mode || 'single'}
-                  currentDate={this.state.currentDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                  focusedInput={focus}
+                  selectedBgColor={selectedBgColor || undefined}
+                  selectedTextColor={selectedTextColor || undefined}
+                  mode={mode || 'single'}
+                  currentDate={currentDate}
                 />
               </View>
               <View
