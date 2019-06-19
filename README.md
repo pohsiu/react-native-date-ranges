@@ -96,5 +96,5 @@ export default class NewPicker extends React.Component{
 | **`markText`** | `String` | optional. default is "選擇日期", you can custom this prop to label text with ur own |
 | **`buttonText`** | `String` | optional. you can modify default button't label with your own | 
 | **`blockAfter`** | `Bool` | optional. default is false, decide blocke date after today or not |
-
+| **`dateSplitter`** | `String` | optional. default is '->', decide custom dateSplitter with String  |
 ....
