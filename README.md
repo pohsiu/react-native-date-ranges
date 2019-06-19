@@ -97,6 +97,8 @@ export default class NewPicker extends React.Component{
 | **`dateSplitter`** | `String` | optional. default is '->', decide custom dateSplitter with String  |
 
 Support one mode of them below only,
+## Props
+| Prop | Type | Description |
 :------------ |:---------------| :-----|
 | **`specifyRanges`** | `Object` | optional. decide specifyRanges in object = { start: moment(), end: moment() }, that only you can select from  |
 | **`blockBefore`** | `Bool` | optional. default is false, decide blocke date before today or not | 
