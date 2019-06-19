@@ -92,9 +92,12 @@ export default class NewPicker extends React.Component{
 | **`outFormat`** | `String` | Optional. custom your datetime format showing at outline touchable filed e.g.('YYYY/MM/DD')|
 | **`mode`** | `String` | one of ['range', 'single'] , default as single|
 | **`customButton`** | `component` | Optional (total custom your button component)e.g.(`<Button></Button>`) | 
-| **`blockBefore`** | `Bool` | optional. default is false, decide blocke date before today or not | 
 | **`markText`** | `String` | optional. default is "選擇日期", you can custom this prop to label text with ur own |
 | **`buttonText`** | `String` | optional. you can modify default button't label with your own | 
-| **`blockAfter`** | `Bool` | optional. default is false, decide blocke date after today or not |
 | **`dateSplitter`** | `String` | optional. default is '->', decide custom dateSplitter with String  |
+
+Support one mode of them below only,
+| **`specifyRanges`** | `Object` | optional. decide specifyRanges in object = { start: moment(), end: moment() }, that only you can select from  |
+| **`blockBefore`** | `Bool` | optional. default is false, decide blocke date before today or not | 
+| **`blockAfter`** | `Bool` | optional. default is false, decide blocke date after today or not |
 ....
