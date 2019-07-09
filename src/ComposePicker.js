@@ -149,22 +149,26 @@ export default class ComposePicker extends Component {
     style = { ...style, ...this.props.style };
 
     return (
-      <TouchableHighlight
-        underlayColor={'transparent'}
-        onPress={() => {
-          this.setModalVisible(true);
-        }}
-        style={[
-          { width: '100%', height: '100%', justifyContent: 'center' },
-          style
-        ]}
-      >
-        <View>
-          <View>
-            <View style={[customStyles.contentInput, styles.contentInput]}>
-              {this.getTitleElement()}
+      <>
+        {this.props.hideSelector? null :
+          <TouchableHighlight
+            underlayColor={'transparent'}
+            onPress={() => {
+              this.setModalVisible(true);
+            }}
+            style={[
+              { width: '100%', height: '100%', justifyContent: 'center' },
+              style
+            ]}
+          >
+            <View>
+              <View>
+                <View style={[customStyles.contentInput, styles.contentInput]}>
+                  {this.getTitleElement()}
+                </View>
+              </View>
             </View>
-          </View>
+          </TouchableHighlight>}
           <Modal
             animationType="slide"
             onRequestClose={() => this.setModalVisible(false)}
@@ -202,8 +206,7 @@ export default class ComposePicker extends Component {
               </View>
             </View>
           </Modal>
-        </View>
-      </TouchableHighlight>
+      </>
     );
   }
 }
