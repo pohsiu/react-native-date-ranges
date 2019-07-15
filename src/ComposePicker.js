@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Modal, Text } from 'react-native';
+import { View, TouchableHighlight, Text, Modal as RNModal, Platform } from 'react-native';
+import WebModal from 'modal-enhanced-react-native-web'
 import PropTypes from 'prop-types';
 import DateRange from './DateRange';
 import moment from 'moment';
 import normalize from './normalizeText';
+
+const Modal = Platform.OS === 'web'? WebModal : RNModal
 
 const styles = {
   placeholderText: {
@@ -174,6 +177,7 @@ export default class ComposePicker extends Component {
             onRequestClose={() => this.setModalVisible(false)}
             transparent={false}
             visible={this.state.modalVisible}
+            isVisible={this.state.modalVisible}
           >
             <View stlye={{ flex: 1, flexDirection: 'column' }}>
               <View style={{ height: '90%' }}>
