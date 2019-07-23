@@ -36,6 +36,11 @@ const styles = {
     fontSize: normalize(20),
     color: "white",
     fontWeight: "bold"
+  },
+  headerDateSingle: {
+    fontSize: 40,
+    color: "white",
+    fontWeight: "bold"
   }
 };
 
@@ -144,6 +149,10 @@ export default class DateRange extends Component {
       ...styles.headTitleText,
       ...customStyles.headerDateTitle
     };
+    const headerDateSingle = {
+      ...styles.headerDateSingle,
+      ...customStyles.headerDateSingle
+    };
     return (
       <View>
         <View style={headerContainer}>
@@ -155,9 +164,7 @@ export default class DateRange extends Component {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this.selectMonthAndDate}>
-                <Text
-                  style={{ fontSize: 40, color: "white", fontWeight: "bold" }}
-                >
+                <Text style={headerDateSingle}>
                   {this.state.clearSingle}
                 </Text>
               </TouchableOpacity>
