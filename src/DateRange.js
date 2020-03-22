@@ -64,7 +64,9 @@ export default class DateRange extends Component {
       clearEnd: "",
       clearSingle: props.currentDate.format(defalutFormat) || "",
       selectState: "monthAndDate", // or year
-      selectedYear: null
+      selectedYear: null,
+      textStartDate: props.textStartDate || "Start Date",
+      textEndDate: props.textEndDate || "End Date",
     };
   }
   previousMonth = () => {
@@ -175,11 +177,11 @@ export default class DateRange extends Component {
               <Text style={markTitle}>{markText}</Text>
               <View style={styles.dateContainer}>
                 <Text style={headerDate}>
-                  {this.state.clearStart ? this.state.clearStart : "Start Date"}
+                  {this.state.clearStart ? this.state.clearStart : this.state.textStartDate}
                 </Text>
                 <Text style={styles.headTitleText} />
                 <Text style={headerDate}>
-                  {this.state.clearEnd ? this.state.clearEnd : "End Date"}
+                  {this.state.clearEnd ? this.state.clearEnd : this.state.textEndDate}
                 </Text>
               </View>
             </View>
