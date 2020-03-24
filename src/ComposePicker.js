@@ -37,7 +37,7 @@ export default class ComposePicker extends Component {
       date: new Date(),
       focus: 'startDate',
       currentDate: moment(),
-      textEndDate: 'Start Date',
+      textStartDate: 'Start Date',
       textEndDate: 'End Date'
     };
   }
