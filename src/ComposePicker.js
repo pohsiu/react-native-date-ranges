@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Modal, Text } from 'react-native';
+import { View, TouchableHighlight, Text, Modal as RNModal, Platform } from 'react-native';
+import WebModal from 'modal-enhanced-react-native-web'
 import PropTypes from 'prop-types';
 import DateRange from './DateRange';
 import moment from 'moment';
 import normalize from './normalizeText';
+
+const Modal = Platform.OS === 'web'? WebModal : RNModal
 
 const styles = {
   placeholderText: {
@@ -151,27 +154,32 @@ export default class ComposePicker extends Component {
     style = { ...style, ...this.props.style };
 
     return (
-      <TouchableHighlight
-        underlayColor={'transparent'}
-        onPress={() => {
-          this.setModalVisible(true);
-        }}
-        style={[
-          { width: '100%', height: '100%', justifyContent: 'center' },
-          style
-        ]}
-      >
-        <View>
-          <View>
-            <View style={[customStyles.contentInput, styles.contentInput]}>
-              {this.getTitleElement()}
+      <>
+        {this.props.hideSelector? null :
+          <TouchableHighlight
+            underlayColor={'transparent'}
+            onPress={() => {
+              this.setModalVisible(true);
+            }}
+            style={[
+              { width: '100%', height: '100%', justifyContent: 'center' },
+              style
+            ]}
+          >
+            <View>
+              <View>
+                <View style={[customStyles.contentInput, styles.contentInput]}>
+                  {this.getTitleElement()}
+                </View>
+              </View>
             </View>
-          </View>
+          </TouchableHighlight>}
           <Modal
             animationType="slide"
             onRequestClose={() => this.setModalVisible(false)}
             transparent={false}
             visible={this.state.modalVisible}
+            isVisible={this.state.modalVisible}
           >
             <View stlye={{ flex: 1, flexDirection: 'column' }}>
               <View style={{ height: '90%' }}>
@@ -206,8 +214,7 @@ export default class ComposePicker extends Component {
               </View>
             </View>
           </Modal>
-        </View>
-      </TouchableHighlight>
+      </>
     );
   }
 }
