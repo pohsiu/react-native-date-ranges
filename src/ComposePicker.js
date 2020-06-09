@@ -95,7 +95,7 @@ export default class ComposePicker extends Component {
         });
       }
     } else {
-      alert('please select correct date');
+      alert('Please select a date range.');
     }
   };
   getTitleElement() {
