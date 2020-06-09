@@ -135,11 +135,11 @@ export default class ComposePicker extends Component {
         underlayColor={'transparent'}
         onPress={this.onConfirm}
         style={[
-          { width: '50%', marginHorizontal: '2%' },
+          { width: '40%', marginHorizontal: '2%' },
           this.props.ButtonStyle
         ]}
       >
-        <Text style={[{ fontSize: 20 }, this.props.ButtonTextStyle]}>
+        <Text style={[{ fontSize: 20, textAlign: 'left' }, this.props.ButtonTextStyle]}>
           {this.props.ButtonText ? this.props.ButtonText : 'OK'}
         </Text>
       </TouchableHighlight>
@@ -153,11 +153,11 @@ export default class ComposePicker extends Component {
         underlayColor={'transparent'}
         onPress={this.onCancel}
         style={[
-          { width: '50%', marginHorizontal: '2%' },
+          { width: '40%', marginHorizontal: '2%' },
           this.props.ButtonStyle
         ]}
       >
-        <Text style={[{ fontSize: 20 }, this.props.ButtonTextStyle]}>
+        <Text style={[{ fontSize: 20, textAlign: 'right' }, this.props.ButtonTextStyle]}>
           Cancel
         </Text>
       </TouchableHighlight>
