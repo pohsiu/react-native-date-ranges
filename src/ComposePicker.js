@@ -213,7 +213,6 @@ export default class ComposePicker extends Component {
                   textEndDate={this.state.textEndDate}
                 />
               </View>
-              <View style={{flexDirection: 'row'}}>
                 <View
                   style={{
                     paddingBottom: '5%',
@@ -225,20 +224,8 @@ export default class ComposePicker extends Component {
                   }}
                 >
                   {this.renderButton()}
-                </View>
-                <View
-                  style={{
-                    paddingBottom: '5%',
-                    width: '100%',
-                    height: '10%',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}
-                >
                   {this.renderCancelButton()}
                 </View>
-              </View>
             </View>
           </Modal>
         </View>
