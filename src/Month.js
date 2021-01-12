@@ -19,10 +19,11 @@ const styles = {
     opacity:0.9,
     fontWeight:'bold'
   },
-}
+};
 export default class Month extends Component{
   render(){
     const {
+      customStyles = {},
       mode,
       date,
       startDate,
@@ -36,23 +37,24 @@ export default class Month extends Component{
       selectedBgColor,
       selectedTextColor,
     } = this.props;
-    const dayNames = []; // store week's each day title 
+    const dayNames = []; // store week's each day title
     const weeks = [];
     const startOfMonth = focusedMonth.clone().startOf('month').startOf('isoweek'); // make startOfMonth is immutable
     const endOfMonth = focusedMonth.clone().endOf('month');                        // same logic as below
 
-    // get the interval of week of first day and last day 
+    // get the interval of week of first day and last day
     const weekRange = moment.range(currentDate.clone().startOf('isoweek'), currentDate.clone().endOf('isoweek'));
     weekRange.by('days', (day) => {
       dayNames.push(
-        <Text key={day.date()} style={styles.dayName}>
-          {day.format('dd')[0]} 
+        <Text key={day.date()} style={[styles.dayName, customStyles.dayNameText]}>
+          {day.format('dd')[0]}
         </Text>
       );
     });
     moment.range(startOfMonth, endOfMonth).by('weeks', (week) => {
       weeks.push(
         <Week
+          customStyles={customStyles}
           key={week}
           mode={mode}
           date={date}
@@ -92,4 +94,4 @@ Month.propTypes = {
   onDatesChange: PropTypes.func,
   isDateBlocked: PropTypes.func,
   onDisableClicked: PropTypes.func
-}
+};
