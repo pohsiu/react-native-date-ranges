@@ -31,20 +31,24 @@ import DatePicker from 'react-native-date-ranges';
 
 //single picker
 <DatePicker
-	style={ { width: 350, height: 45 } }
+	style={ { width: 350, height: 45 } } // default width will be equal to placeholder text width
 	customStyles = { {
 		placeholderText:{ fontSize:20 }, // placeHolder style
 		headerStyle : {  },			// title container style
 		headerMarkTitle : { }, // title mark style 
 		headerDateTitle: { }, // title Date style
 		contentInput: {}, //content text container style
-		contentText: {}, //after selected text Style
+		contentText: {}, //after selected text style
+                monthPickerText: {}, //focused month picker text style
+                datePickerText: {}, //calendar dates text style
+                dayNameText: {} //day of week title text style (M, T, W, T, F, S, S)
 	} } // optional 
 	centerAlign // optional text will align center or not
 	allowFontScaling = {false} // optional
 	placeholder={'Apr 27, 2018'}
 	selectedBgColor="black"
 	selectedTextColor="blue"
+        calendarBgColor="black"
 />
 
 
@@ -83,6 +87,7 @@ export default class NewPicker extends React.Component{
 | **`customStyles`** | `Object` | optional. customize style e.g.({ placeholderText:{}, headerStyle:{} ... }) |
 | **`style`** | `Object` | Optional. date picker's style |
 | **`onConfirm`** | `Function` | Optional. call function after click button, that would return a date object {startDate:'', endDate:''} e.g( value=>console.log(value))|
+| **`calendarBgColor`** | `String` | Optional. custom the calendar view background color e.g {"black"} |
 | **`selectedBgColor`** | `String` | Optional. custom your selected date background color e.g {"black"} |
 | **`selectedTextColor`** | `String` | Optional. custom your selected date text color e.g {"black"} |
 | **`ButtonStyle`** | `Object` | Optional. custom your save button container style |
