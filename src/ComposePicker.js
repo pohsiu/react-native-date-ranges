@@ -36,9 +36,7 @@ export default class ComposePicker extends Component {
       endDate: null,
       date: new Date(),
       focus: 'startDate',
-      currentDate: moment(),
-      textStartDate: 'Start Date',
-      textEndDate: 'End Date'
+      currentDate: moment()
     };
   }
   isDateBlocked = date => {
@@ -62,6 +60,22 @@ export default class ComposePicker extends Component {
   setModalVisible = visible => {
     this.setState({ modalVisible: visible });
   };
+
+  onClickCancel = () => {
+    this.setState({
+      startDate:null,
+      endDate:null
+    })
+    this.picker.setState({
+        startDate: null,
+        endDate: null,
+        clearStart: "",
+        clearEnd: "",
+        showContent: false
+    })
+    this.setModalVisible(false);
+
+}
   onConfirm = () => {
     const returnFormat = this.props.returnFormat || 'YYYY/MM/DD';
     const outFormat = this.props.outFormat || 'LL';
@@ -78,6 +92,8 @@ export default class ComposePicker extends Component {
       }
       return;
     }
+
+    
 
     if (this.state.startDate && this.state.endDate) {
       const start = this.state.startDate.format(outFormat);
@@ -132,6 +148,27 @@ export default class ComposePicker extends Component {
         underlayColor={'transparent'}
         onPress={this.onConfirm}
         style={[
+          { width: '80%', marginHorizontal: '5%' },
+          this.props.ButtonStyle
+        ]}
+      >
+        <Text style={[{ fontSize: 20 }, this.props.ButtonTextStyle]}>
+          {this.props.ButtonText ? this.props.ButtonText : '送出'}
+        </Text>
+      </TouchableHighlight>
+    );
+  };
+  CancelButton = () => {
+    const { clearButton } = this.props;
+
+    if (clearButton) {
+      return clearButton(this.onClickCancel);
+    }
+    return (
+      <TouchableHighlight
+        underlayColor={'transparent'}
+        onPress={this.onClickCancel}
+        style={[
           { width: '80%', marginHorizontal: '3%' },
           this.props.ButtonStyle
         ]}
@@ -142,6 +179,7 @@ export default class ComposePicker extends Component {
       </TouchableHighlight>
     );
   };
+
 
   render() {
     const { customStyles = {} } = this.props;
@@ -157,7 +195,7 @@ export default class ComposePicker extends Component {
           this.setModalVisible(true);
         }}
         style={[
-          { height: '100%', justifyContent: 'center' },
+          { width: '100%', height: '100%', justifyContent: 'center' },
           style
         ]}
       >
@@ -173,9 +211,10 @@ export default class ComposePicker extends Component {
             transparent={false}
             visible={this.state.modalVisible}
           >
-            <View style={{ flex: 1, flexDirection: 'column' , backgroundColor: this.props.calendarBgColor}}>
-              <View style={{ height: '90%' }}>
+            <View stlye={{ flex: 1, flexDirection: 'column' }}>
+              <View style={{ height: '80%' }}>
                 <DateRange
+                  ref = {(ref)=> this.picker = ref} 
                   headFormat={this.props.headFormat}
                   customStyles={customStyles}
                   markText={this.props.markText}
@@ -184,27 +223,27 @@ export default class ComposePicker extends Component {
                   startDate={this.state.startDate}
                   endDate={this.state.endDate}
                   focusedInput={this.state.focus}
-                  calendarBgColor={this.props.calendarBgColor || undefined}
                   selectedBgColor={this.props.selectedBgColor || undefined}
                   selectedTextColor={this.props.selectedTextColor || undefined}
                   mode={this.props.mode || 'single'}
                   currentDate={this.state.currentDate}
-                  textStartDate={this.state.textStartDate}
-                  textEndDate={this.state.textEndDate}
                 />
               </View>
               <View
                 style={{
-                  paddingBottom: '5%',
+                  // paddingBottom: '5%',
                   width: '100%',
-                  height: '10%',
-                  flexDirection: 'row',
+                  height: '15%',
+                  // backgroundColor:"red",
+                  // flexDirection: 'row',
                   justifyContent: 'center',
                   alignItems: 'center'
                 }}
               >
+                {this.CancelButton()}
+
                 {this.renderButton()}
-              </View>
+               </View>
             </View>
           </Modal>
         </View>
