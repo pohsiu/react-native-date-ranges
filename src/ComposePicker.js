@@ -62,6 +62,9 @@ export default class ComposePicker extends Component {
   setModalVisible = visible => {
     this.setState({ modalVisible: visible });
   };
+  onCancel = () => {
+    this.setModalVisible(false);
+  }
   onConfirm = () => {
     const returnFormat = this.props.returnFormat || 'YYYY/MM/DD';
     const outFormat = this.props.outFormat || 'LL';
@@ -95,7 +98,7 @@ export default class ComposePicker extends Component {
         });
       }
     } else {
-      alert('please select correct date');
+      alert('Please select a date range.');
     }
   };
   getTitleElement() {
@@ -132,12 +135,30 @@ export default class ComposePicker extends Component {
         underlayColor={'transparent'}
         onPress={this.onConfirm}
         style={[
-          { width: '80%', marginHorizontal: '3%' },
+          { width: '40%', marginHorizontal: '2%' },
           this.props.ButtonStyle
         ]}
       >
-        <Text style={[{ fontSize: 20 }, this.props.ButtonTextStyle]}>
-          {this.props.ButtonText ? this.props.ButtonText : '送出'}
+        <Text style={[{ fontSize: 20, textAlign: 'left' }, this.props.ButtonTextStyle]}>
+          {this.props.ButtonText ? this.props.ButtonText : 'OK'}
+        </Text>
+      </TouchableHighlight>
+    );
+  };
+
+  renderCancelButton = () => {
+    
+    return (
+      <TouchableHighlight
+        underlayColor={'transparent'}
+        onPress={this.onCancel}
+        style={[
+          { width: '40%', marginHorizontal: '2%' },
+          this.props.ButtonStyle
+        ]}
+      >
+        <Text style={[{ fontSize: 20, textAlign: 'right' }, this.props.ButtonTextStyle]}>
+          Cancel
         </Text>
       </TouchableHighlight>
     );
@@ -193,18 +214,19 @@ export default class ComposePicker extends Component {
                   textEndDate={this.state.textEndDate}
                 />
               </View>
-              <View
-                style={{
-                  paddingBottom: '5%',
-                  width: '100%',
-                  height: '10%',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                {this.renderButton()}
-              </View>
+                <View
+                  style={{
+                    paddingBottom: '5%',
+                    width: '100%',
+                    height: '10%',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  {this.renderButton()}
+                  {this.renderCancelButton()}
+                </View>
             </View>
           </Modal>
         </View>
