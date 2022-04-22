@@ -178,7 +178,7 @@ export default class ComposePicker extends Component {
           this.setModalVisible(true);
         }}
         style={[
-          { width: '100%', height: '100%', justifyContent: 'center' },
+          { height: '100%', justifyContent: 'center' },
           style
         ]}
       >
@@ -194,7 +194,7 @@ export default class ComposePicker extends Component {
             transparent={false}
             visible={this.state.modalVisible}
           >
-            <View stlye={{ flex: 1, flexDirection: 'column' }}>
+            <View style={{ flex: 1, flexDirection: 'column' , backgroundColor: this.props.calendarBgColor}}>
               <View style={{ height: '90%' }}>
                 <DateRange
                   headFormat={this.props.headFormat}
@@ -205,6 +205,7 @@ export default class ComposePicker extends Component {
                   startDate={this.state.startDate}
                   endDate={this.state.endDate}
                   focusedInput={this.state.focus}
+                  calendarBgColor={this.props.calendarBgColor || undefined}
                   selectedBgColor={this.props.selectedBgColor || undefined}
                   selectedTextColor={this.props.selectedTextColor || undefined}
                   mode={this.props.mode || 'single'}

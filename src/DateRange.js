@@ -188,21 +188,22 @@ export default class DateRange extends Component {
           )}
         </View>
         {this.state.selectState === "monthAndDate" && (
-          <View style={styles.calendar}>
+          <View style={[styles.calendar, {backgroundColor: this.props.calendarBgColor}]}>
             <View style={styles.headActionContainer}>
               <TouchableOpacity onPress={this.previousMonth}>
                 <Text
                   style={{
                     paddingHorizontal: 15,
                     fontSize: 18,
-                    fontWeight: "bold"
+                    fontWeight: "bold",
+                    ...customStyles.monthPickerText
                   }}
                 >
                   {"<"}
                 </Text>
               </TouchableOpacity>
               <Text
-                style={{ fontSize: 20, color: "black", fontWeight: "bold" }}
+                style={{ fontSize: 20, color: "black", fontWeight: "bold", ...customStyles.monthPickerText }}
               >
                 {this.state.focusedMonth.format("MMMM YYYY")}
               </Text>
@@ -211,7 +212,8 @@ export default class DateRange extends Component {
                   style={{
                     paddingHorizontal: 15,
                     fontSize: 18,
-                    fontWeight: "bold"
+                    fontWeight: "bold",
+                    ...customStyles.monthPickerText
                   }}
                 >
                   {">"}
@@ -219,6 +221,7 @@ export default class DateRange extends Component {
               </TouchableOpacity>
             </View>
             <Month
+              customStyles={customStyles}
               mode={this.props.mode}
               date={this.props.date}
               startDate={this.props.startDate}
@@ -238,7 +241,7 @@ export default class DateRange extends Component {
           <View
             style={[
               styles.calendar,
-              { height: "75%", justifyContent: "center" }
+              { height: "75%", justifyContent: "center", backgroundColor: this.props.calendarBgColor }
             ]}
           >
             <Picker

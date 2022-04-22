@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'moment-range';
-import { dates } from './dates';
+import {dates} from './dates';
 import normalize from './normalizeText';
-
 
 
 const styles = {
@@ -30,7 +29,7 @@ const styles = {
   daySelected: {
     backgroundColor: "#4597A8",
   },
-  
+
   dayDisabledText: {
     color: 'gray',
     opacity: 0.5,
@@ -47,18 +46,19 @@ const styles = {
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
   },
-  borderContainer : { 
-    width:40, 
-    height:40, 
-    alignItems:'center', 
-    justifyContent:'center', 
+  borderContainer : {
+    width:40,
+    height:40,
+    alignItems:'center',
+    justifyContent:'center',
   }
-}
+};
 
 export default class Week extends Component{
-  
+
   render(){
     const {
+      customStyles = {},
       mode,
       date,
       startDate,
@@ -76,16 +76,16 @@ export default class Week extends Component{
     const endOfWeek = startOfWeek.clone().endOf('isoweek');
 
     moment.range(startOfWeek, endOfWeek).by('days', (day) => {
-      
+
       const onPress = () => {
         if (isDateBlocked(day)) {
           onDisableClicked(day);
         } else if (mode === 'range') {
           let isPeriodBlocked = false;
           const start = focusedInput === 'startDate' ? day : startDate;
-          
+
           const end = focusedInput === 'endDate' ? day : endDate;
-          
+
           if (start && end) {
             moment.range(start, end).by('days', (dayPeriod) => {
               if (isDateBlocked(dayPeriod)) isPeriodBlocked = true;
@@ -95,8 +95,7 @@ export default class Week extends Component{
             dates(end, null, 'startDate') :
             dates(start, end, focusedInput));
         } else if (mode === 'single') {
-          const input = day;
-          onDatesChange({ currentDate: input});
+          onDatesChange({ currentDate: day});
         } else {
           onDatesChange({ date: day });
         }
@@ -108,22 +107,22 @@ export default class Week extends Component{
             return day.isSameOrAfter(startDate, 'day') && day.isSameOrBefore(endDate, 'day');
           }
           return (startDate && day.isSame(startDate, 'day')) || (endDate && day.isSame(endDate, 'day'));
-        } 
+        }
         return date && day.isSame(date, 'day');
       };
-      
+
       const isDateSelected = () => {
         if (mode === 'single') {
           return currentDate && day.isSame(currentDate, 'day');
         }
         return date && day.isSame(date, 'day');
-      }
+      };
       const isDateStart = () => {
         return startDate && day.isSame(startDate, 'day');
-      }
+      };
       const isDateEnd = () => {
         return endDate && day.isSame(endDate, 'day');
-      }
+      };
 
       const isBlocked = isDateBlocked(day);
       const isRangeSelected = isDateRangeSelected();
@@ -143,18 +142,19 @@ export default class Week extends Component{
 
       const styleText = [
         styles.dayText,
+        customStyles.datePickerText,
         isBlocked && styles.dayDisabledText,
         isRangeSelected && daySelectedText,
         isSelected && daySelectedText,
       ];
-      const borderContainer = (mode === 'single') && isSelected 
+      const borderContainer = (mode === 'single') && isSelected
         ? [styles.borderContainer,
-          { borderRadius:20, 
-            backgroundColor: 
-              selectedBgColor 
-              ? selectedBgColor 
+          { borderRadius:20,
+            backgroundColor:
+              selectedBgColor
+              ? selectedBgColor
               : styles.daySelected.backgroundColor
-          }] 
+          }]
         : styles.borderContainer;
       days.push(
         <TouchableOpacity
@@ -163,7 +163,7 @@ export default class Week extends Component{
           onPress={onPress}
           disabled={isBlocked && !onDisableClicked}
         >
-          <View style={borderContainer}> 
+          <View style={borderContainer}>
             <Text style={styleText}>{day.date()}</Text>
           </View>
         </TouchableOpacity>
@@ -185,4 +185,4 @@ Week.propTypes = {
   onDatesChange: PropTypes.func,
   isDateBlocked: PropTypes.func,
   onDisableClicked: PropTypes.func
-}
+};
