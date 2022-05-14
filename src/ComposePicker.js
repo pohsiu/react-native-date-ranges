@@ -103,17 +103,15 @@ export default class ComposePicker extends Component {
   };
   getTitleElement() {
     const { placeholder, customStyles = {}, allowFontScaling } = this.props;
-    const showContent = this.state.showContent;
-    if (!showContent && placeholder) {
       return (
         <Text
           allowFontScaling={allowFontScaling}
           style={[styles.placeholderText, customStyles.placeholderText]}
         >
-          {placeholder}
+          {this.state.selected || placeholder}
         </Text>
       );
-    }
+    
     return (
       <Text
         allowFontScaling={allowFontScaling}
