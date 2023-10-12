@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
-import { Picker } from "react-native/picker";
+import { Picker } from "@react-native-picker/picker";
 import PropTypes from "prop-types";
 import moment from "moment";
 import normalize from "./normalizeText";
